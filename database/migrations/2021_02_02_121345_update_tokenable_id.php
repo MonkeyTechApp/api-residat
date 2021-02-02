@@ -14,7 +14,7 @@ class UpdateTokenableId extends Migration
     public function up()
     {
         //
-        Schema::create('personal_access_tokens', function (Blueprint $table) {
+        Schema::table('personal_access_tokens', function (Blueprint $table) {
             $table->uuid('tokenable_id')->change();
         });
     }
