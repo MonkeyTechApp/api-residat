@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'role_id' => '3bc077dc-eba6-4e36-b8a2-631ef5a54d1e',// first role generated from seeds
+            'role_id' => '759e3297-c713-4204-b1b6-a0ff63a49bb2',// first role generated from seeds
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];
