@@ -84,6 +84,30 @@ class AdministrativeZoneController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegionAdminZones($id)
+    {
+        //
+        $adminZones = AdministrativeZone::with('mother', 'children' , 'region')->where('region_id',$id)->get();
+        if($adminZones != null){
+            $response = [
+                'data' => $adminZones,
+                'message' => ResponseMessage::$response201
+            ];
+            return response($response, 201);
+        }else {
+            $response = [
+                'message' => ResponseMessage::$response404
+            ];
+            return response($response, 404);
+        }
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
