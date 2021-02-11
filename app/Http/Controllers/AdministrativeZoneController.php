@@ -92,7 +92,7 @@ class AdministrativeZoneController extends Controller
     public function showRegionAdminZones($id)
     {
         //
-        $adminZones = AdministrativeZone::with('mother', 'children' , 'region')->where('region_id',$id)->get();
+        $adminZones = AdministrativeZone::where('region_id',$id)->get();
         if($adminZones != null){
             $response = [
                 'data' => $adminZones,
