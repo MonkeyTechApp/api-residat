@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::put('region/{id}','App\Http\Controllers\RegionController@update');
     Route::delete('region/{id}','App\Http\Controllers\RegionController@destroy');
 
-    Route::resource("adminZone", AdministrativeZoneController::class);
+
 //    Route::get('adminZone/{id}','App\Http\Controllers\AdministrativeZoneController@show');
     Route::get('adminZone/region/{id}','App\Http\Controllers\AdministrativeZoneController@showRegionAdminZones');
 //    Route::get('adminZone','App\Http\Controllers\AdministrativeZoneController@index');
@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
 Route::get('testing/{mytest}','App\Http\Controllers\TestController@index');
 
 Route::post("login", 'App\Http\Controllers\UserController@index');
+Route::resource("adminZone", AdministrativeZoneController::class);
 
 
 
