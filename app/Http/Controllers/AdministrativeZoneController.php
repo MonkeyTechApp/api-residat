@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\Region;
 use App\ResponseMessage;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AdministrativeZoneController extends Controller
 {
@@ -81,6 +82,39 @@ class AdministrativeZoneController extends Controller
             ];
             return response($response, 404);
         }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function fetch(Request $request): Response
+    {
+        //
+        if($request->input('tag') != null && $request->input('key') != null){
+            $adminZone = AdministrativeZone::where('parent_id',$request->input('key')
+                ->where('tag_name', $request->input('tag')))->first();
+            if($adminZone != null){
+                $response = [
+                    'data' => $adminZone,
+                    'message' => ResponseMessage::$response201
+                ];
+                return response($response, 201);
+            }else {
+                $response = [
+                    'message' => ResponseMessage::$response404
+                ];
+                return response($response, 404);
+            }
+        }else {
+            $response = [
+                'message' => ResponseMessage::$response400
+            ];
+            return response($response, 400);
+        }
+
     }
 
     /**

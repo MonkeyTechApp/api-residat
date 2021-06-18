@@ -46,6 +46,7 @@ Route::get('testing/{mytest}','App\Http\Controllers\TestController@index');
 
 Route::post("login", 'App\Http\Controllers\UserController@index');
 Route::resource("adminZone", AdministrativeZoneController::class);
+Route::get("adminZone/fetch/specific", [AdministrativeZoneController::class, 'fetch']);
 
 
 
