@@ -94,8 +94,8 @@ class AdministrativeZoneController extends Controller
     {
         //
         if($request->input('tag') != null && $request->input('key') != null){
-            $adminZone = AdministrativeZone::where('parent_id',$request->input('key')
-                ->where('tag_name', $request->input('tag')))->first();
+            $adminZone = AdministrativeZone::where('parent_id',$request->input('key'))
+                ->where('tag_name', $request->input('tag'))->first();
             if($adminZone != null){
                 $response = [
                     'data' => $adminZone,
