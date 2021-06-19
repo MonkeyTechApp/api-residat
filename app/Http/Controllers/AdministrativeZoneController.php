@@ -101,7 +101,7 @@ class AdministrativeZoneController extends Controller
                     'data' => $adminZone,
                     'message' => ResponseMessage::$response201
                 ];
-                return response($response, 201);
+                return response($response, 200);
             }else {
                 $response = [
                     'message' => ResponseMessage::$response404
