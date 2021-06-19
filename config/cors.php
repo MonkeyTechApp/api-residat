@@ -26,7 +26,7 @@ return [
         'DELETE',
         ],
 
-    'allowed_origins' => ['http://localhost:8080' ],
+    'allowed_origins' => ['*' ],
 
     'allowed_origins_patterns' => ['*'],
 
