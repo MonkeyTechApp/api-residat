@@ -93,9 +93,9 @@ class AdministrativeZoneController extends Controller
     public function fetch(Request $request): Response
     {
         //
-        if($request->input('tag') != null && $request->input('key') != null){
+        if($request->input('tag') != null ){
             $adminZone= null;
-            if(strcmp($request->input('key'), 'null') == 0){
+            if($request->input('key') == null){
                 $adminZone = AdministrativeZone::with('mother')->whereNull('parent_id')
                     ->where('tag_name', $request->input('tag'))->first();
             }else {
