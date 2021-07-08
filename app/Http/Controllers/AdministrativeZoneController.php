@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdministrativeZone;
-use App\Models\Country;
 use App\Models\Region;
 use App\ResponseMessage;
 use Illuminate\Http\Request;
@@ -19,7 +18,8 @@ class AdministrativeZoneController extends Controller
     public function index()
     {
         //
-        $adminZones = AdministrativeZone::all();
+        $adminZones = AdministrativeZone::with('mapKeys' ,
+            'vectors')->get();
         if(count($adminZones) > 0){
             return response(
                 $response = [
@@ -69,7 +69,8 @@ class AdministrativeZoneController extends Controller
     public function show($id)
     {
         //
-        $adminZone = AdministrativeZone::with('mother', 'children' , 'region')->where('id',$id)->first();
+        $adminZone = AdministrativeZone::with('mother', 'children' ,
+             'mapKeys' , 'vectors.type', 'vectors.graphicType')->where('id',$id)->first();
         if($adminZone != null){
             $response = [
                 'data' => $adminZone,
@@ -96,10 +97,12 @@ class AdministrativeZoneController extends Controller
         if($request->input('tag') != null ){
             $adminZone= null;
             if($request->input('key') == null){
-                $adminZone = AdministrativeZone::with('mother')->whereNull('parent_id')
+                $adminZone = AdministrativeZone::with('mother', 'vectors.type',
+                    'vectors.graphicType', 'mapKeys')->whereNull('parent_id')
                     ->where('tag_name', $request->input('tag'))->first();
             }else {
-                $adminZone = AdministrativeZone::with('mother')->where('parent_id',$request->input('key'))
+                $adminZone = AdministrativeZone::with('mother', 'vectors.type',
+                    'vectors.graphicType', 'mapKeys')->where('parent_id',$request->input('key'))
                     ->where('tag_name', $request->input('tag'))->first();
             }
 
