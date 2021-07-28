@@ -18,8 +18,7 @@ class AdministrativeZoneController extends Controller
     public function index()
     {
         //
-        $adminZones = AdministrativeZone::with('mapKeys' ,
-            'vectors')->get();
+        $adminZones = AdministrativeZone::with('vectors.mapKeys')->get();
         if(count($adminZones) > 0){
             return response(
                 $response = [
@@ -70,7 +69,7 @@ class AdministrativeZoneController extends Controller
     {
         //
         $adminZone = AdministrativeZone::with('mother', 'children' ,
-             'mapKeys' , 'vectors.type', 'vectors.graphicType')->where('id',$id)->first();
+             'vectors.mapKeys' , 'vectors.type', 'vectors.graphicType')->where('id',$id)->first();
         if($adminZone != null){
             $response = [
                 'data' => $adminZone,
@@ -96,14 +95,23 @@ class AdministrativeZoneController extends Controller
         //
         if($request->input('tag') != null ){
             $adminZone= null;
+            $return = 0;
+            if($request->input('return') != null){
+                $return = $request->input('return');
+            }
             if($request->input('key') == null){
                 $adminZone = AdministrativeZone::with('mother', 'vectors.type',
-                    'vectors.graphicType', 'mapKeys')->whereNull('parent_id')
+                    'vectors.graphicType', 'vectors.mapKeys')->whereNull('parent_id')
                     ->where('tag_name', $request->input('tag'))->first();
             }else {
-                $adminZone = AdministrativeZone::with('mother', 'vectors.type',
-                    'vectors.graphicType', 'mapKeys')->where('parent_id',$request->input('key'))
-                    ->where('tag_name', $request->input('tag'))->first();
+                if($return > 0)
+                    $adminZone = AdministrativeZone::with('mother', 'vectors.type',
+                        'vectors.graphicType', 'vectors.mapKeys')->where('id',$request->input('key'))
+                        ->where('tag_name', $request->input('tag'))->first();
+                else
+                    $adminZone = AdministrativeZone::with('mother', 'vectors.type',
+                        'vectors.graphicType', 'vectors.mapKeys')->where('parent_id',$request->input('key'))
+                        ->where('tag_name', $request->input('tag'))->first();
             }
 
             if($adminZone != null){

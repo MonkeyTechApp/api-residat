@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $level
  * @property bool $active
  * @property-read Collection|Vector[] $vectors
- * @property-read Collection|MapKeys[] $mapKeys
  *
  */
 class AdministrativeZone extends Model
@@ -40,13 +39,6 @@ class AdministrativeZone extends Model
      */
     public function vectors () : HasMany{
         return $this->hasMany(Vector::class);
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function mapKeys() : HasMany{
-        return $this->hasMany(MapKeys::class);
     }
 
     /**
